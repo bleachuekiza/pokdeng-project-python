@@ -109,7 +109,18 @@ def check_win(x):
 
         xcard = ['23A', '234', '345', '456', '567', '678', '789', '1089', '109J', '10JQ', 'JKQ']
         xcard2 = ['JQQ', 'JKK', 'JJQ', 'JJK', 'KKQ', 'KQQ']
-        if scp in xcard or scb in xcard:
+        tongcard = ['AAA', '222', '333', '444', '555', '666', '777', '888', '999', '101010', 'JJJ', 'QQQ', 'KKK']
+        if scp in tongcard or scb in tongcard:
+            if scp != scb:
+                if scp in tongcard and scb not in tongcard:
+                    print('Pตอง')
+                elif scb in tongcard and scp not in tongcard:
+                    print('Bตอง')
+                else:
+                    print('1ตองเสมอ')
+            elif scp == scb:
+                print('2ตองเสมอ')
+        elif scp in xcard or scb in xcard:
             if scp != scb:
                 if scp in xcard and scb not in xcard:
                     if player[0]['Suit'] == player[1]['Suit'] == player[2]['Suit']:
