@@ -100,7 +100,6 @@ def check_win(x):
             psort.append(i['Card'])
         psort.sort()
         scp = psort[0]+psort[1]+psort[2]
-        # print(scp)
 
         bsort = []
         for x in bot:
@@ -110,47 +109,44 @@ def check_win(x):
 
         xcard = ['23A', '234', '345', '456', '567', '678', '789', '1089', '109J', '10JQ', 'JKQ']
         xcard2 = ['JQQ', 'JKK', 'JJQ', 'JJK', 'KKQ', 'KQQ']
-        xcheck = 0
-        for xc in range(len(xcard)):
-            if xcard[xc] == scp or xcard[xc] == scb:
-                # xcheck = 1
-                # break
-        for xs in range(len(xcard2)):
-            if xcard2[xs] == scp or xcard2[xs] == scb:
-                xcheck = 2
-                break
-        if xcheck == 1:
+        if scp in xcard or scb in xcard:
             if scp != scb:
-                for i in range(len(xcard)):
-                    if scp == xcard[i]:
-                        if player[0]['Suit'] == player[1]['Suit'] == player[2]['Suit']:
-                            print('Pเรียงฟลัช')
-                        elif scp == xcard[i]:
-                            print('Pเรียง')
-                    elif scb == xcard[i]:
-                        if bot[0]['Suit'] == bot[1]['Suit'] == bot[2]['Suit']:
-                            print('Bเรียงฟลัช')
-                        elif scb == xcard[i]:
-                            print('Bเรียง')
+                if scp in xcard and scb not in xcard:
+                    if player[0]['Suit'] == player[1]['Suit'] == player[2]['Suit']:
+                        print('Pเรียงฟลัช')
                     else:
-                        print('เรียงเสมอ')
+                        print('Pเรียง')
+                elif scb in xcard and scp not in xcard:
+                    if bot[0]['Suit'] == bot[1]['Suit'] == bot[2]['Suit']:
+                        print('Bเรียงฟลัช')
+                    else:
+                        print('Bเรียง')
+                else:
+                    print('1เรียงเสมอ')
             elif scp == scb:
-                print('เรียงเสมอ')
-        elif xcheck == 2:
-            if scp == 'JQQ' or scp == 'JKK' or scp == 'JJQ' or scp == 'JJK' or scp == 'KKQ' or scp == 'KQQ':
-                print('Pสามเหลือง')
-            elif scb == 'JQQ' or scb == 'JKK' or scb == 'JJQ' or scb == 'JJK' or scb == 'KKQ' or scb == 'KQQ':
-                print('Bสามเหลือง')
+                print('2เรียงเสมอ')
+        elif scp in xcard2 or scp in xcard2:
+            if scp != scb:
+                if scp in xcard and scb not in xcard2:
+                    print('Pสามเหลือง')
+                elif scb in xcard and scp not in xcard2:
+                    print('Bสามเหลือง')
+                else:
+                    print('1สามเหลืองเสมอ')
+            elif scp == scb:
+                print('2สามเหลืองเสมอ')
         else:
+            print(player[0]['Emoji'] + '\t' + player[1]['Emoji'] + '\t' + player[2]['Emoji'])
+            print(bot[0]['Emoji'] + '\t' + bot[1]['Emoji'] + '\t' + bot[2]['Emoji'])
             if point_player > point_bot:
-                if player[0]['Suit'] == player[1]['Suit'] != player[2]['Suit']:
+                if player[0]['Suit'] == player[1]['Suit'] and player[2]['Card'] == '' or player[0]['Card'] == player[1]['Card'] and player[2]['Card'] == '':
                     print('Pสองเด้ง')
                 elif player[0]['Suit'] == player[1]['Suit'] == player[2]['Suit']:
                     print('Pสามเด้ง')
                 else:
                     print('Pปกติ')
             elif point_player < point_bot: 
-                if bot[0]['Suit'] == bot[1]['Suit'] and bot[2]['Card'] == 'None':
+                if bot[0]['Suit'] == bot[1]['Suit'] and bot[2]['Card'] == '' or bot[0]['Card'] == bot[1]['Card'] and bot[2]['Card'] == '':
                     print('Bสองเด้ง')
                 elif bot[0]['Suit'] == bot[1]['Suit'] == bot[2]['Suit']:
                     print('Bสามเด้ง')
@@ -169,7 +165,7 @@ def player_third_card():
     global point_player
     if point_player < 8:
         player_draw = input('Draw more? [D] Draw [S] Stay : ')
-        if player_draw == 'D' or player_draw == 'd':
+        if player_draw in ['D', 'd']:
             random_card('second')
         else:
             print('You Stay')
@@ -196,130 +192,16 @@ def bot_third_card():
 def continue_game():
     while True:
         con = input('[C] Continue [X] Exit : ')
-        if con == 'c' or con == 'C':
+        if con in ['c', 'C']:
             print('Starting new game')
             create_new_deck()
-        elif con == 'x' or con == 'X':
+        elif con in ['x', 'X']:
             print('Close Game')
             print('You Win :\t', player_win, '\tRound\nBot Win :\t', bot_win, '\tRound')
             sleep(2)
             exit()
-            
-def Testsys():
-    global player, bot , point_player, point_bot
-    # # Player None Card
-    # player = [
-    #     {'Card':'', 'Suit':'', 'Point': 0, 'Emoji' : '', 'Imgage':''},
-    #     {'Card':'', 'Suit':'', 'Point': 0, 'Emoji' : '', 'Imgage':''},
-    #     {'Card':'', 'Suit':'', 'Point': 0, 'Emoji' : '', 'Imgage':''}
-    # ]
-    # # เรียงฟลัช
-    # player = [
-    #     {'Card':'A', 'Suit':'Clubs', 'Emoji' : 'A♣', 'Unicode': '🃑', 'Point': 1, 'Imgage':'Ac.png'},
-    #     {'Card':'2', 'Suit':'Clubs', 'Emoji' : '2♣', 'Unicode': '🃒', 'Point': 2, 'Imgage':'2c.png'},
-    #     {'Card':'3', 'Suit':'Clubs', 'Emoji' : '3♣', 'Unicode': '🃓', 'Point': 3, 'Imgage':'3c.png'}
-    # ]
-    # # เรียง
-    player = [
-        {'Card':'A', 'Suit':'Clubs', 'Emoji' : 'A♣', 'Unicode': '🃑', 'Point': 1, 'Imgage':'Ac.png'},
-        {'Card':'2', 'Suit':'Clubs', 'Emoji' : '2♣', 'Unicode': '🃒', 'Point': 2, 'Imgage':'2c.png'},
-        {'Card':'3', 'Suit':'Diamonds', 'Emoji' : '3♦', 'Unicode': '🃃', 'Point': 3, 'Imgage':'3d.png'}
-    ]
-    # # สามเหลือง
-    # KKQ QKK = KKQ
-    # player = [
-    #     {'Card':'K', 'Suit':'Hearts', 'Emoji' : 'K♥', 'Unicode': '🂾', 'Point': 0, 'Imgage':'kh.png'},
-    #     {'Card':'K', 'Suit':'Spades', 'Emoji' : 'K♠', 'Unicode': '🂮', 'Point': 0, 'Imgage':'ks.png'}, 
-    #     {'Card':'Q', 'Suit':'Hearts', 'Emoji' : 'Q♥', 'Unicode': '🂽', 'Point': 0, 'Imgage':'qh.png'}
-    # ]
-    # KKJ JKK = JKK
-    # QQJ JQQ = JQQ
-    # KQQ QQK = KQQ
-    # JJQ QJJ = JJQ
-    # JJK KJJ = JJK
-    # player = [
-    #     {'Card':'K', 'Suit':'Clubs', 'Emoji' : 'K♣', 'Unicode': '🃞', 'Point': 0, 'Imgage':'kc.png'},
-    #     {'Card':'J', 'Suit':'Clubs', 'Emoji' : 'J♣', 'Unicode': '🃛', 'Point': 0, 'Imgage':'jc.png'},  
-    #     {'Card':'Q', 'Suit':'Hearts', 'Emoji' : 'Q♥', 'Unicode': '🂽', 'Point': 0, 'Imgage':'qh.png'}
-    # ]
-    # # ปกติ 2 เด้ง 7 แต้ม
-    # player = [
-    #     {'Card':'A', 'Suit':'Clubs', 'Emoji' : 'A♣', 'Unicode': '🃑', 'Point': 1, 'Imgage':'Ac.png'},
-    #     {'Card':'6', 'Suit':'Clubs', 'Emoji' : '6♣', 'Unicode': '🃖', 'Point': 6, 'Imgage':'6c.png'},
-    #     {'Card':'', 'Suit':'', 'Point': 0, 'Emoji' : '', 'Imgage':''}
-    # ]
-    # # ปกติ 3 เด้ง 7 แต้ม
-    # player = [
-    #     {'Card':'A', 'Suit':'Clubs', 'Emoji' : 'A♣', 'Unicode': '🃑', 'Point': 1, 'Imgage':'Ac.png'},
-    #     {'Card':'2', 'Suit':'Clubs', 'Emoji' : '2♣', 'Unicode': '🃒', 'Point': 2, 'Imgage':'2c.png'},
-    #     {'Card':'4', 'Suit':'Clubs', 'Emoji' : '4♣', 'Unicode': '🃔', 'Point': 4, 'Imgage':'4c.png'}
-    # ]
-    # # ปกติ
-    # player = [
-    #     {'Card':'A', 'Suit':'Clubs', 'Emoji' : 'A♣', 'Unicode': '🃑', 'Point': 1, 'Imgage':'Ac.png'},
-    #     {'Card':'3', 'Suit':'Clubs', 'Emoji' : '3♣', 'Unicode': '🃓', 'Point': 3, 'Imgage':'3c.png'},
-    #     {'Card':'A', 'Suit':'Spades', 'Emoji' : 'A♠', 'Unicode': '🂡', 'Point': 1, 'Imgage':'As.png'}
-    # ]
-    point_player = ((player[0]['Point'] + player[1]['Point'] + player[2]['Point']) % 10)
 
-    # # Bot None Card
-    # bot = [
-    #     {'Card':'', 'Suit':'', 'Point': 0, 'Emoji' : '', 'Imgage':''},
-    #     {'Card':'', 'Suit':'', 'Point': 0, 'Emoji' : '', 'Imgage':''},
-    #     {'Card':'', 'Suit':'', 'Point': 0, 'Emoji' : '', 'Imgage':''}
-    # ]
-    # # เรียงฟลัช
-    # bot = [
-    #     {'Card':'A', 'Suit':'Clubs', 'Emoji' : 'A♣', 'Unicode': '🃑', 'Point': 1, 'Imgage':'Ac.png'},
-    #     {'Card':'2', 'Suit':'Clubs', 'Emoji' : '2♣', 'Unicode': '🃒', 'Point': 2, 'Imgage':'2c.png'},
-    #     {'Card':'3', 'Suit':'Clubs', 'Emoji' : '3♣', 'Unicode': '🃓', 'Point': 3, 'Imgage':'3c.png'}
-    # ]
-    # # เรียง
-    bot = [
-        {'Card':'4', 'Suit':'Clubs', 'Emoji' : '4♣', 'Unicode': '🃔', 'Point': 4, 'Imgage':'4c.png'},
-        {'Card':'2', 'Suit':'Clubs', 'Emoji' : '2♣', 'Unicode': '🃒', 'Point': 2, 'Imgage':'2c.png'},
-        {'Card':'3', 'Suit':'Diamonds', 'Emoji' : '3♦', 'Unicode': '🃃', 'Point': 3, 'Imgage':'3d.png'}
-    ]
-    # # สามเหลือง
-    # KKQ QKK = KKQ
-    # bot = [
-    #     {'Card':'K', 'Suit':'Hearts', 'Emoji' : 'K♥', 'Unicode': '🂾', 'Point': 0, 'Imgage':'kh.png'},
-    #     {'Card':'K', 'Suit':'Spades', 'Emoji' : 'K♠', 'Unicode': '🂮', 'Point': 0, 'Imgage':'ks.png'}, 
-    #     {'Card':'Q', 'Suit':'Hearts', 'Emoji' : 'Q♥', 'Unicode': '🂽', 'Point': 0, 'Imgage':'qh.png'}
-    # ]
-    # KKJ JKK = JKK
-    # QQJ JQQ = JQQ
-    # KQQ QQK = KQQ
-    # JJQ QJJ = JJQ
-    # JJK KJJ = JJK
-    # bot = [
-    #     {'Card':'K', 'Suit':'Clubs', 'Emoji' : 'K♣', 'Unicode': '🃞', 'Point': 0, 'Imgage':'kc.png'},
-    #     {'Card':'J', 'Suit':'Clubs', 'Emoji' : 'J♣', 'Unicode': '🃛', 'Point': 0, 'Imgage':'jc.png'},  
-    #     {'Card':'Q', 'Suit':'Hearts', 'Emoji' : 'Q♥', 'Unicode': '🂽', 'Point': 0, 'Imgage':'qh.png'}
-    # ]
-    # # ปกติ 2 เด้ง 7 แต้ม
-    # bot = [
-    #     {'Card':'A', 'Suit':'Clubs', 'Emoji' : 'A♣', 'Unicode': '🃑', 'Point': 1, 'Imgage':'Ac.png'},
-    #     {'Card':'6', 'Suit':'Clubs', 'Emoji' : '6♣', 'Unicode': '🃖', 'Point': 6, 'Imgage':'6c.png'},
-    #     {'Card':'', 'Suit':'', 'Point': 0, 'Emoji' : '', 'Imgage':''}
-    # ]
-    # # ปกติ 3 เด้ง 7 แต้ม
-    # bot = [
-    #     {'Card':'A', 'Suit':'Clubs', 'Emoji' : 'A♣', 'Unicode': '🃑', 'Point': 1, 'Imgage':'Ac.png'},
-    #     {'Card':'2', 'Suit':'Clubs', 'Emoji' : '2♣', 'Unicode': '🃒', 'Point': 2, 'Imgage':'2c.png'},
-    #     {'Card':'4', 'Suit':'Clubs', 'Emoji' : '4♣', 'Unicode': '🃔', 'Point': 4, 'Imgage':'4c.png'}
-    # ]
-    # # ปกติ
-    # bot = [
-    #     {'Card':'A', 'Suit':'Clubs', 'Emoji' : 'A♣', 'Unicode': '🃑', 'Point': 1, 'Imgage':'Ac.png'},
-    #     {'Card':'3', 'Suit':'Clubs', 'Emoji' : '3♣', 'Unicode': '🃓', 'Point': 3, 'Imgage':'3c.png'},
-    #     {'Card':'A', 'Suit':'Spades', 'Emoji' : 'A♠', 'Unicode': '🂡', 'Point': 1, 'Imgage':'As.png'}
-    # ]
-    point_bot = ((bot[0]['Point'] + bot[1]['Point'] + bot[2]['Point']) % 10)
-
-    check_win(3)
         
 
 if __name__ == "__main__":
-    # create_new_deck()
-    Testsys()
+    create_new_deck()
