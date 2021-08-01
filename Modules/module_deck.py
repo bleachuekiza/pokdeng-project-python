@@ -54,3 +54,7 @@ deck = [
     ]
 
 NoneCard = {'Card':'', 'Suit':'', 'Point': 0, 'Emoji' : '', 'Imgage':''}
+
+def create_new_deck():
+    deck_loop = deck.copy()
+    return deck_loop
