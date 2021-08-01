@@ -1,3 +1,7 @@
 # Ignore Folder cache
 __pycache__
 playground
+
+# Ignore Environments
+Pipfile
+Pipfile.lock

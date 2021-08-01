@@ -6,9 +6,9 @@ def Module_check_win(x, player, point_player, bot, point_bot):
         CardBot = '\t' + bot[0]['Emoji'] + '\t' + bot[1]['Emoji']
         if point_player >= 8 or point_bot >= 8:
             if point_player > point_bot:
-                print('Your Point :' , point_player, '\nYour Card : ' , CardPlayer)
-                print('Bot Point :' , point_bot, '\nBot Card : ' , CardBot)
-                if player[0]['Suit'] == player[1]['Suit']:
+                print('Your Point :\t' , point_player, '\nYour Card : ' , CardPlayer)
+                print('Bot Point :\t' , point_bot, '\nBot Card : ' , CardBot)
+                if player[0]['Suit'] == player[1]['Suit'] or player[0]['Card'] == player[1]['Card']:
                     print('Player win Pok{} (2 Deng)'.format(point_player))
                     player_win = player_win + 1
                 else:
@@ -17,7 +17,7 @@ def Module_check_win(x, player, point_player, bot, point_bot):
             elif point_player < point_bot: 
                 print('Your Point :' , point_player, '\nYour Card : ' , CardPlayer)
                 print('Bot Point :' , point_bot, '\nBot Card : ' , CardBot)
-                if bot[0]['Suit'] == bot[1]['Suit']:
+                if bot[0]['Suit'] == bot[1]['Suit'] or bot[0]['Card'] == bot[1]['Card']:
                     print('Bot Win Pok{} (2 Deng)'.format(point_bot))
                     bot_win = bot_win + 1
                 else:
@@ -96,7 +96,7 @@ def Module_check_win(x, player, point_player, bot, point_bot):
                 print('2Draw (Sam lueang)')
         else:
             if point_player > point_bot:
-                if player[0]['Suit'] == player[1]['Suit'] and player[2]['Card'] == '' or player[0]['Card'] == player[1]['Card'] and player[2]['Card'] == '':
+                if player[0]['Suit'] == player[1]['Suit'] and player[2]['Suit'] == '' or player[0]['Card'] == player[1]['Card'] and player[2]['Card'] == '':
                     print('Player win {} (2 Deng)'.format(point_player))
                     player_win = player_win + 1
                 elif player[0]['Suit'] == player[1]['Suit'] == player[2]['Suit']:
@@ -106,7 +106,7 @@ def Module_check_win(x, player, point_player, bot, point_bot):
                     print('Player win {}'.format(point_player))
                     player_win = player_win + 1
             elif point_player < point_bot: 
-                if bot[0]['Suit'] == bot[1]['Suit'] and bot[2]['Card'] == '' or bot[0]['Card'] == bot[1]['Card'] and bot[2]['Card'] == '':
+                if bot[0]['Suit'] == bot[1]['Suit'] and bot[2]['Suit'] == '' or bot[0]['Card'] == bot[1]['Card'] and bot[2]['Card'] == '':
                     print('Bot win {} (2 Deng)'.format(point_bot))
                     bot_win = bot_win + 1
                 elif bot[0]['Suit'] == bot[1]['Suit'] == bot[2]['Suit']:
