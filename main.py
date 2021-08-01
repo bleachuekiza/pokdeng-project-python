@@ -7,9 +7,9 @@ from Modules.module_checkwin import *
 clear = lambda: os.system('cls')
 
 deck_loop = []
-player = []; point_player = 0; player_win = 0
-bot = []; point_bot = 0; bot_win = 0
-
+player = []; player_win = 0
+bot = []; bot_win = 0
+# ; point_player = 0; point_bot = 0
 def random_card():
     clear()
     # print(len(deck_loop))
@@ -61,7 +61,7 @@ def bot_third_card():
         check_win(3)
 
 def check_win(x):
-    global player_win, bot_win
+    global player_win, bot_win, point_player, point_bot
     point_player = (player[0]['Point'] + player[1]['Point'] + player[2]['Point']) % 10
     point_bot = (bot[0]['Point'] + bot[1]['Point'] + bot[2]['Point']) % 10
     Mcheckwin = Module_check_win(x, player, point_player, bot, point_bot)
