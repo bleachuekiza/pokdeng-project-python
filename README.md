@@ -19,6 +19,10 @@
  ![GitHub Logo](https://shields.io/badge/Version-1.2-green)
 - เช็คเด้ง(2-3), เรียงฟลัช, เรียง, สามเหลือง, ตอง
 
+![GitHub Logo](https://shields.io/badge/Version-2.4-green)<br>
+- เพิ่มหน้าต่าง Ui
+- ปรับการเก็บข้อมูลการ์ดผู้เล่นและบอท
+
 <!-- # Coming Soon
 ![GitHub Logo](https://shields.io/badge/NextUpdate->>>-orange) -->
 

@@ -1,97 +1,79 @@
-import random
-from time import sleep
-import os
-from Modules.module_deck import *
-from Modules.module_checkwin import *
+import pygame
+from threading import Thread
+from game import *
+pygame.init()
 
-clear = lambda: os.system('cls')
+pygame.display.set_caption('Pokdeng Game Card')
+icon = pygame.image.load('assets/icon.png')
+pygame.display.set_icon(icon)
+# # 720p
+screen = pygame.display.set_mode((1280, 720))
 
-deck_loop = []
-player = []; player_win = 0
-bot = []; bot_win = 0
-# ; point_player = 0; point_bot = 0
-def random_card():
-    clear()
-    # print(len(deck_loop))
-    for x in range(2):
-        for i in range(2):
-            if i == 1:
-                randomcard = random.randint(0, len(deck_loop)-1)
-                print('[BOT] Draw Card')
-                bot.append(deck_loop[randomcard])
-                deck_loop.pop(randomcard)
-                sleep(1)
-            else:
-                randomcard = random.randint(0, len(deck_loop)-1)
-                print('Draw Card :\t', deck_loop[randomcard]['Emoji'])
-                player.append(deck_loop[randomcard])
-                deck_loop.pop(randomcard)
-                sleep(1)
-    player.append(NoneCard)
-    bot.append(NoneCard)
-    sleep(1)
-    check_win(2)
-    
-def player_third_card():  
-    if point_player < 8:
-        player_draw = input('Draw more? [D] Draw [S] Stay : ')
-        if player_draw in ['D', 'd']:
-            randomcard = random.randint(0, len(deck_loop)-1)
-            print('Draw Card :\t', deck_loop[randomcard]['Emoji'])
-            player[2]= deck_loop[randomcard]
-            deck_loop.pop(randomcard)
-            sleep(1)
-            bot_third_card()
+bgload = pygame.image.load('assets/background.png')
+bg = pygame.transform.scale(bgload, (1280, 720))
+# # 720p
+
+imgbackcard = 'assets/backcard.jpg'
+load_backcard = pygame.image.load(imgbackcard)
+position_dealer = [(528, 168), (548, 188), (573, 203)]
+position_player1 = [(553, 423), (573, 443), (593, 463)]
+
+card_dealer = ['None', 'None', 'None']
+card_player1 = ['None', 'None', 'None']
+
+def showcard(status):
+    username = 'Player'
+    if status == 'hide':
+        # Player 1
+        if username == cardloca[0]['name']:
+            for i in range(3):
+                load_card = pygame.image.load(cardloca[0]['cards'][i]['Imgage'])
+                card_player1[i] = pygame.transform.scale(load_card, (90, 135))
         else:
-            print('You Stay')
-            sleep(1)
-            bot_third_card()
-    
-def bot_third_card():
-    if point_bot < 5:
-        randomcard = random.randint(0, len(deck_loop)-1)
-        print('[BOT] Draw more')
-        bot[2]= deck_loop[randomcard]
-        deck_loop.pop(randomcard)
-        sleep(1)
-        check_win(3)
-    else:
-        print('[BOT] Stay')
-        sleep(1)
-        check_win(3)
+            for i in range(3):
+                if cardloca[0]['cards'][i]['Card'] != 'None':
+                    card_player1[i] = pygame.transform.scale(load_backcard, (90, 135))
+                else:
+                    load_card = pygame.image.load(cardloca[0]['cards'][i]['Imgage'])
+                    card_player1[i] = pygame.transform.scale(load_card, (90, 135))
+        for i in range(3):
+            if cardloca[1]['cards'][i]['Card'] != 'None':
+                card_dealer[i] = pygame.transform.scale(load_backcard, (90, 135))
+            else:
+                load_card = pygame.image.load(cardloca[1]['cards'][i]['Imgage'])
+                card_dealer[i] = pygame.transform.scale(load_card, (90, 135))
 
-def check_win(x):
-    global player_win, bot_win, point_player, point_bot
-    point_player = (player[0]['Point'] + player[1]['Point'] + player[2]['Point']) % 10
-    point_bot = (bot[0]['Point'] + bot[1]['Point'] + bot[2]['Point']) % 10
-    Mcheckwin = Module_check_win(x, player, point_player, bot, point_bot)
-    player_win = player_win + Mcheckwin[0]
-    bot_win = bot_win + Mcheckwin[1]
-    if Mcheckwin[2] == 1:
-        print('Your Point :\t', point_player)
-        player_third_card()
+    elif status == 'show':
+        for i in range(3):
+            load_card = pygame.image.load(cardloca[0]['cards'][i]['Imgage'])
+            card_player1[i] = pygame.transform.scale(load_card, (90, 135))
+        for i in range(3):
+            load_card = pygame.image.load(cardloca[1]['cards'][i]['Imgage'])
+            card_dealer[i] = pygame.transform.scale(load_card, (90, 135))
     else:
-        player.clear(), bot.clear()
-        print('Clear Card on hand')
-        sleep(2)
-        continue_game()
+        print('Show Card Error')
 
-def continue_game():
-    global point_player, point_bot, deck_loop
-    while True:
-        # print(len(deck_loop))
-        con = input('[C] Continue [X] Exit : ')
-        if con in ['c', 'C']:
-            print('Starting new game')
-            deck_loop = create_new_deck()
-            sleep(2)
-            random_card()
-        elif con in ['x', 'X']:
-            print('Close Game')
-            print('You Win :\t', player_win, '\tRound\nBot Win :\t', bot_win, '\tRound')
-            sleep(2)
-            exit()
 
 if __name__ == "__main__":
-    deck_loop = create_new_deck()
-    random_card()
+    Thread(target=main).start()
+    run = True
+    while run:
+        # x = status_show_cards()
+        showcard(status_show_cards())
+        pygame.time.delay(30)
+        
+        for eventget in pygame.event.get():
+            pygame.display.flip()
+            if eventget.type == pygame.QUIT:
+                run = False
+
+        screen.blit(bg, (0, 0))
+        screen.blit(card_player1[0], position_player1[0])
+        screen.blit(card_player1[1], position_player1[1])
+        screen.blit(card_player1[2], position_player1[2])
+        
+        screen.blit(card_dealer[0], position_dealer[0])
+        screen.blit(card_dealer[1], position_dealer[1])
+        screen.blit(card_dealer[2], position_dealer[2])
+        pygame.display.update()
+    pygame.quit()

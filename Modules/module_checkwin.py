@@ -1,9 +1,9 @@
 def Module_check_win(x, player, point_player, bot, point_bot):
     player_third_card = 0
     player_win = 0; bot_win = 0
+    CardPlayer = '\t' + player[0]['Emoji'] + '\t' + player[1]['Emoji'] + '\t' + player[2]['Emoji']
+    CardBot = '\t' + bot[0]['Emoji'] + '\t' + bot[1]['Emoji'] + '\t' + bot[2]['Emoji']
     if x == 2:
-        CardPlayer = '\t' + player[0]['Emoji'] + '\t' + player[1]['Emoji']
-        CardBot = '\t' + bot[0]['Emoji'] + '\t' + bot[1]['Emoji']
         if point_player >= 8 or point_bot >= 8:
             if point_player > point_bot:
                 print('Your Point :\t' , point_player, '\nYour Card : ' , CardPlayer)
@@ -30,8 +30,6 @@ def Module_check_win(x, player, point_player, bot, point_bot):
         else:
             player_third_card = 1
     if x == 3:
-        CardPlayer = '\t' + player[0]['Emoji'] + '\t' + player[1]['Emoji'] + '\t' + player[2]['Emoji']
-        CardBot = '\t' + bot[0]['Emoji'] + '\t' + bot[1]['Emoji'] + '\t' + bot[2]['Emoji']
         print('Your Point :' , point_player, '\nYour Card : ' , CardPlayer)
         print('Bot Point :' , point_bot, '\nBot Card : ' , CardBot)
 
