@@ -20,18 +20,21 @@
 
 # Version 2
 ![GitHub Logo](https://shields.io/badge/Version-2.1-green)<br>
-[05/08/2021] [Ui without System]
+[Ui without System]
  - ขึ้นรูปร่างหน้า ui
 
 ![GitHub Logo](https://shields.io/badge/Version-2.2-green)<br>
-[06/08/2021] [Ui without System]
+[Ui without System]
  - แก้ไข้อาการหน้าต่างค้าง
 
 ![GitHub Logo](https://shields.io/badge/Version-2.4-green)<br>
-[12/08/2021]
 - เพิ่มระบบการเล่น
 - ปรับการเก็บข้อมูลการ์ดผู้เล่นและบอท
 
 ![GitHub Logo](https://shields.io/badge/Version-2.5-green)<br>
-[15/08/2021]
 - เปลี่ยนการจั๋วการ์ดเพิ่มหรือเริ่มเกมใหม่ ไม่ต้องพิมพ์ส่งค่าอินพุต กดปุ่มที่หน้าต่างเกมได้เลย
+
+![GitHub Logo](https://shields.io/badge/Version-2.6-green)<br>
+- แสดงสกอบอร์ดในหน้าต่างเกม
+- แสดงข้อความกดปุ่มในหน้าต่างเกม
+- ขึ้นข้อความว่าใครชนะ

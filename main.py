@@ -1,7 +1,12 @@
+# -*- coding: utf-8 -*-
+
 import pygame
+import pygame.freetype
 from threading import Thread
 from game import *
 pygame.init()
+
+GAME_FONT = pygame.freetype.Font("tahomabd.ttf", 24)
 
 pygame.display.set_caption('Pokdeng Game Card')
 icon = pygame.image.load('assets/icon.png')
@@ -53,12 +58,16 @@ def showcard(status):
     else:
         print('Show Card Error')
 
+posX = 400
+posY = 400
 
 if __name__ == "__main__":
     Thread(target=main).start()
     run = True
     while run:
-        # x = status_show_cards()
+        x = score_win()
+        dis_stu = status_game()
+        win_stu = status_win()
         showcard(status_show_cards())
         pygame.time.delay(30)
         
@@ -66,6 +75,19 @@ if __name__ == "__main__":
             pygame.display.flip()
             if eventget.type == pygame.QUIT:
                 run = False
+        ## ไว้สำหรับหาค่า X Y
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+            posX-=5
+        if keys[pygame.K_RIGHT]:
+            posX+=5
+        if keys[pygame.K_UP]:
+            posY-=5
+        if keys[pygame.K_DOWN]:
+            posY+=5
+        if keys[pygame.K_SPACE]:
+            print('X {}\nY {}'.format(posX, posY))
+        ## ไว้สำหรับหาค่า X Y
 
         screen.blit(bg, (0, 0))
         screen.blit(card_player1[0], position_player1[0])
@@ -75,5 +97,22 @@ if __name__ == "__main__":
         screen.blit(card_dealer[0], position_dealer[0])
         screen.blit(card_dealer[1], position_dealer[1])
         screen.blit(card_dealer[2], position_dealer[2])
+        score_player, rect = GAME_FONT.render('Player Win:{}'.format(x[0]), (255, 255, 255))
+        screen.blit(score_player, (330, 75))
+        score_bot, rect = GAME_FONT.render('Bot Win:{}'.format(x[1]), (255, 255, 255))
+        screen.blit(score_bot, (330, 120))
+        # text_surface3, rect = GAME_FONT.render('เทสภาษาไทย', (255, 255, 255))
+        # screen.blit(text_surface3, (posX, posY))
+        if dis_stu == 'Tcard':
+            text_surface3, rect = GAME_FONT.render('กดปุ่ม [D]จั๋วไพ่เพิ่ม [S]ไม่จั๋ว', (255, 255, 255))
+            screen.blit(text_surface3, (515, 355))
+        elif dis_stu == 'Continue':
+            text_surface3, rect = GAME_FONT.render('กดปุ่ม [C] เริ่มเกมใหม่', (255, 255, 255))
+            screen.blit(text_surface3, (520, 355))
+        if win_stu != 'None':
+            text_win, rect = GAME_FONT.render('{} Win'.format(win_stu), (255, 255, 255))
+            screen.blit(text_win, (370, 210))
+        text_surface, rect = GAME_FONT.render('เทสภาษาไทย อิอ ตี้ ทั่ว อี้  อี่', (0, 0, 0))
+        screen.blit(text_surface, (posX, posY))
         pygame.display.update()
     pygame.quit()
