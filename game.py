@@ -62,7 +62,7 @@ def player_third_card():
                 deck_loop.pop(randomcard)
                 print('[SYS] Player Draw more')
                 sleep(1)
-            if keys[pygame.K_s]:
+            if keys[pygame.K_p]:
                 display_status[0] = 'None'
                 check_press_key = False
                 print('[SYS] Player Stay')
